@@ -1,0 +1,9 @@
+{
+  "mae_p50": 7.348,
+  "pinball_q10": 2.108,
+  "pinball_q50": 3.674,
+  "pinball_q90": 2.235,
+  "coverage_80": 0.628,
+  "n_train": 15609,
+  "n_valid": 5204
+}
