@@ -113,10 +113,11 @@ with tab1:
         for col in picks:
             fig.add_trace(go.Scatter(x=view.datetime, y=view[col], name=available[col], mode="lines"))
         fig.update_layout(
-            template="plotly_white", hoverlabel=dict(bgcolor="#0e1117", bordercolor="#666", font=dict(color="white", size=13)), height=460, hovermode="x unified",
+            template="plotly_white", hoverlabel=dict(bgcolor="white", bordercolor="black", font=dict(color="black", size=13)), height=460, hovermode="x unified",
             xaxis_title="Time (Europe/Berlin)", yaxis_title="Value",
             legend=dict(orientation="h", y=1.08, bgcolor="rgba(0,0,0,0)"),
         )
+        fig.update_traces(hoverlabel=dict(bgcolor="white", bordercolor="black", font=dict(color="black", size=13)))
         st.plotly_chart(fig, use_container_width=True)
         st.caption(
             "Tip: features on very different scales (price vs MW) will look "
@@ -142,7 +143,8 @@ with tab2:
         labels={xcol: available[xcol], ycol: available[ycol]},
         trendline="ols", trendline_color_override="#d62728",
     )
-    fig.update_layout(template="plotly_white", hoverlabel=dict(bgcolor="#0e1117", bordercolor="#666", font=dict(color="white", size=13)), height=460)
+    fig.update_layout(template="plotly_white", hoverlabel=dict(bgcolor="white", bordercolor="black", font=dict(color="black", size=13)), height=460)
+    fig.update_traces(hoverlabel=dict(bgcolor="white", bordercolor="black", font=dict(color="black", size=13)))
     st.plotly_chart(fig, use_container_width=True)
     if xcol in view and ycol in view:
         corr = view[[xcol, ycol]].corr().iloc[0, 1]
@@ -161,14 +163,16 @@ with tab3:
     with col1:
         by_hour = v.groupby("hour")[price].mean().reset_index()
         fig = px.bar(by_hour, x="hour", y=price, labels={price: "Avg price €/MWh", "hour": "Hour of day"})
-        fig.update_layout(template="plotly_white", hoverlabel=dict(bgcolor="#0e1117", bordercolor="#666", font=dict(color="white", size=13)), height=360, title="Average price by hour")
+        fig.update_layout(template="plotly_white", hoverlabel=dict(bgcolor="white", bordercolor="black", font=dict(color="black", size=13)), height=360, title="Average price by hour")
+        fig.update_traces(hoverlabel=dict(bgcolor="white", bordercolor="black", font=dict(color="black", size=13)))
         st.plotly_chart(fig, use_container_width=True)
         st.caption("Look for the morning ramp (~8h) and evening peak (~19h).")
     with col2:
         order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         by_dow = v.groupby("weekday")[price].mean().reindex(order).reset_index()
         fig = px.bar(by_dow, x="weekday", y=price, labels={price: "Avg price €/MWh", "weekday": ""})
-        fig.update_layout(template="plotly_white", hoverlabel=dict(bgcolor="#0e1117", bordercolor="#666", font=dict(color="white", size=13)), height=360, title="Average price by weekday")
+        fig.update_layout(template="plotly_white", hoverlabel=dict(bgcolor="white", bordercolor="black", font=dict(color="black", size=13)), height=360, title="Average price by weekday")
+        fig.update_traces(hoverlabel=dict(bgcolor="white", bordercolor="black", font=dict(color="black", size=13)))
         st.plotly_chart(fig, use_container_width=True)
         st.caption("Weekends are usually cheaper — less industrial demand.")
 
@@ -177,7 +181,8 @@ with tab4:
     st.subheader("Price distribution and extreme events")
     price = "intraday_price_eur_mwh"
     fig = px.histogram(view, x=price, nbins=60, labels={price: "Intraday price €/MWh"})
-    fig.update_layout(template="plotly_white", hoverlabel=dict(bgcolor="#0e1117", bordercolor="#666", font=dict(color="white", size=13)), height=380, title="How often does each price occur?")
+    fig.update_layout(template="plotly_white", hoverlabel=dict(bgcolor="white", bordercolor="black", font=dict(color="black", size=13)), height=380, title="How often does each price occur?")
+    fig.update_traces(hoverlabel=dict(bgcolor="white", bordercolor="black", font=dict(color="black", size=13)))
     st.plotly_chart(fig, use_container_width=True)
 
     neg = int((view[price] < 0).sum())
