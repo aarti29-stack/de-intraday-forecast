@@ -61,14 +61,30 @@ st.sidebar.header("Controls")
 
 dmin = df.datetime.min().date()
 dmax = df.datetime.max().date()
-date_range = st.sidebar.date_input(
-    "Date range", value=(dmax - pd.Timedelta(days=30), dmax),
-    min_value=dmin, max_value=dmax,
+
+# Quick presets so the full 3-year history is one click away instead of
+# paging the calendar widget back month by month.
+preset = st.sidebar.radio(
+    "Quick range",
+    ["Last 30 days", "Last 6 months", "Last year", "Full history", "Custom"],
+    index=0,
 )
-if isinstance(date_range, tuple) and len(date_range) == 2:
-    start, end = date_range
-else:
+PRESET_DAYS = {"Last 30 days": 30, "Last 6 months": 182, "Last year": 365}
+
+if preset == "Custom":
+    date_range = st.sidebar.date_input(
+        "Date range", value=(dmax - pd.Timedelta(days=30), dmax),
+        min_value=dmin, max_value=dmax,
+    )
+    if isinstance(date_range, tuple) and len(date_range) == 2:
+        start, end = date_range
+    else:
+        start, end = dmin, dmax
+elif preset == "Full history":
     start, end = dmin, dmax
+else:
+    start = max(dmin, dmax - pd.Timedelta(days=PRESET_DAYS[preset]))
+    end = dmax
 
 mask = (df.datetime.dt.date >= start) & (df.datetime.dt.date <= end)
 view = df[mask].copy()
