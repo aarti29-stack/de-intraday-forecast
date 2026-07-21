@@ -115,8 +115,8 @@ fig.add_trace(go.Scatter(
 ))
 fig.update_layout(
     xaxis_title="Time (Europe/Berlin)", yaxis_title="Price (EUR/MWh)",
-    hovermode="x unified", template="plotly_white", height=420,
-    legend=dict(orientation="h", y=1.08),
+    hovermode="x unified", template="plotly_white", hoverlabel=dict(bgcolor="rgba(25,25,25,0.95)", font=dict(color="white")), height=420,
+    legend=dict(orientation="h", y=1.08, bgcolor="rgba(25,25,25,0.6)", font=dict(color="white")),
 )
 st.plotly_chart(fig, use_container_width=True)
 
@@ -143,8 +143,8 @@ fig2.add_trace(go.Scatter(
 ))
 fig2.update_layout(
     xaxis_title="Time (Europe/Berlin)", yaxis_title="MW",
-    hovermode="x unified", template="plotly_white", height=380,
-    legend=dict(orientation="h", y=1.08),
+    hovermode="x unified", template="plotly_white", hoverlabel=dict(bgcolor="rgba(25,25,25,0.95)", font=dict(color="white")), height=380,
+    legend=dict(orientation="h", y=1.08, bgcolor="rgba(25,25,25,0.6)", font=dict(color="white")),
 )
 st.plotly_chart(fig2, use_container_width=True)
 
