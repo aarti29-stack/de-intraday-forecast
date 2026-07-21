@@ -113,7 +113,7 @@ with tab1:
         for col in picks:
             fig.add_trace(go.Scatter(x=view.datetime, y=view[col], name=available[col], mode="lines"))
         fig.update_layout(
-            template="plotly_white", hoverlabel=dict(bgcolor="white", bordercolor="black", font=dict(color="black", size=13)), height=460, hovermode="x unified",
+            template="plotly_white", hoverlabel=dict(bgcolor="white", bordercolor="black", font=dict(color="black", size=13)), height=460, hovermode="x",
             xaxis_title="Time (Europe/Berlin)", yaxis_title="Value",
             legend=dict(orientation="h", y=1.08, bgcolor="rgba(0,0,0,0)"),
         )
