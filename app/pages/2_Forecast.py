@@ -74,10 +74,10 @@ fig.add_trace(go.Scatter(
 ))
 fig.update_layout(
     xaxis_title="Time (Europe/Berlin)", yaxis_title="Price (EUR/MWh)",
-    hovermode="x unified", template="plotly_dark", hoverlabel=dict(bgcolor="rgba(25,25,25,0.95)", font=dict(color="white")), height=460,
-    legend=dict(orientation="h", y=1.08, bgcolor="rgba(25,25,25,0.6)", font=dict(color="white")),
+    hovermode="x unified", template="plotly_white", hoverlabel=dict(bgcolor="#0e1117", bordercolor="#666", font=dict(color="white", size=13)), height=460,
+    legend=dict(orientation="h", y=1.08, bgcolor="rgba(0,0,0,0)"),
 )
-st.plotly_chart(fig, use_container_width=True, theme=None)
+st.plotly_chart(fig, use_container_width=True)
 
 st.caption(
     "The blue line is the model's central (P50) forecast. The shaded band is "
